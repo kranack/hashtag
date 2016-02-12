@@ -24,28 +24,28 @@ class File:
             productWeights[i] = int(pw[i])
         nbWarehouses = int(f.readline())
         # 0 .. self.nbProducts, x-coor, y-coor
-        warehouseData = [[0 for i in range(self.nbProducts + 2)] for k in range(nbWarehouses)]
+        self.warehouseDatas = [[0 for i in range(self.nbProducts + 2)] for k in range(nbWarehouses)]
         for k in range(nbWarehouses) :
           wp = f.readline().split()
-          warehouseData[k][self.nbProducts] = int(wp[0])
-          warehouseData[k][self.nbProducts + 1] = int(wp[1])
+          self.warehouseDatas[k][self.nbProducts] = int(wp[0])
+          self.warehouseDatas[k][self.nbProducts + 1] = int(wp[1])
           ww = f.readline().split()
           for i in range(self.nbProducts) :
-              warehouseData[k][i] = int(ww[i])
+              self.warehouseDatas[k][i] = int(ww[i])
         nbOrders = int(f.readline())
         #xcor, ycor, self.nbProducts
-        ordersData = [[0,0,0,{}] for i in range(nbOrders)]
+        self.ordersDatas = [[0,0,0,{}] for i in range(nbOrders)]
         for i in range(nbOrders) :
             cor = f.readline().split()
-            ordersData[i][0] = int(cor[0])
-            ordersData[i][1] = int(cor[1])
-            ordersData[i][2] = int(f.readline()) # c'est le nb des products
+            self.ordersDatas[i][0] = int(cor[0])
+            self.ordersDatas[i][1] = int(cor[1])
+            self.ordersDatas[i][2] = int(f.readline()) # c'est le nb des products
             od = f.readline().split()
-            for j in range(ordersData[i][2]) :
+            for j in range(self.ordersDatas[i][2]) :
                 q = int(od[j])
-                if (q in ordersData[i][3]) :
-                    ordersData[i][3][q] += 1
+                if (q in self.ordersDatas[i][3]) :
+                    self.ordersDatas[i][3][q] += 1
                 else :
-                    ordersData[i][3][q] = 1
+                    self.ordersDatas[i][3][q] = 1
         f.close()
-        return ordersData
+        return {'drones' : self.nbDrones, 'warehouses' : self.warehouseDatas, 'orders' : self.ordersDatas}
